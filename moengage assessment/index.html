@@ -5,22 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .password-toggle {
+      position: relative;
+    }
+    .password-toggle-icon {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      cursor: pointer;
+      user-select: none;
+    }
+  </style>
 </head>
 <body>
   <div class="main-container">
     <div class="login-container">
-         
       <h2>Login</h2>
-       <h4>Login Cradentials:</h4>
-        <p>Username: 7397516182</p>
-        <p>Password : dhana@22</p>
+      <h4>Login Credentials:</h4>
+      <p>Username: 7397516182</p>
+      <p>Password : dhana@22</p>
+
       <input type="text" id="username" placeholder="Phone Number" />
-      <input type="password" id="password" placeholder="Password" />
+
+      
+      <div class="password-toggle">
+        <input type="password" id="password" placeholder="Password" />
+        <span class="password-toggle-icon" onclick="togglePassword()">👁️</span>
+      </div>
+
       <button onclick="login()">Login</button>
       <p id="error" class="error"></p>
+
+      <p>Don't have an account? <a href="signup.html">Sign up</a></p>
     </div>
   </div>
 
   <script src="script.js"></script>
+
+  <script>
+    function togglePassword() {
+      const passwordInput = document.getElementById("password");
+      passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+    }
+  </script>
 </body>
 </html>

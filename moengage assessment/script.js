@@ -1,4 +1,3 @@
-// === LOGIN LOGIC ===
 function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -6,18 +5,27 @@ function login() {
 
   if (username === "7397516182" && password === "dhana@22") {
     window.location.href = "main.html";
+    return;
+  }
+
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
+  if (
+    storedUser &&
+    storedUser.phone === username &&
+    storedUser.password === password
+  ) {
+    window.location.href = "main.html";
   } else {
     errorEl.textContent = "Invalid phone number or password.";
   }
 }
-function logout() {
-  // Clear any login/session info, e.g.:
-  localStorage.removeItem('isLoggedIn');  // or whatever you store
 
-  // Redirect to login page (change 'index.html' if different)
+function logout() {
+  localStorage.removeItem('isLoggedIn');
   window.location.href = 'index.html';
 }
-// === MAIN PAGE LOGIC ===
+
 const codes = [...Array.from({ length: 600 }, (_, i) => i)].filter(i => i >= 100 && i <= 599);
 let currentFilterResults = [];
 
@@ -117,6 +125,7 @@ function deleteList(index) {
   localStorage.setItem("lists", JSON.stringify(lists));
   loadSavedLists();
 }
+
 function showModal() {
   document.getElementById("errorModal").style.display = "block";
 }
@@ -125,7 +134,6 @@ function closeModal() {
   document.getElementById("errorModal").style.display = "none";
 }
 
-// Auto init when on main.html
 window.onload = function () {
   if (document.getElementById("images")) {
     loadAllImages();

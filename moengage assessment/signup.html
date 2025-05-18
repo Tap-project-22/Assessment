@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .password-toggle {
+      position: relative;
+    }
+    .password-toggle-icon {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-container">
+    <div class="login-container">
+      <h2>Sign Up</h2>
+
+      <input type="text" id="phone" placeholder="Phone Number" />
+
+      <div class="password-toggle">
+        <input type="password" id="password" placeholder="Password" />
+        <span class="password-toggle-icon" onclick="togglePassword('password')">👁️</span>
+      </div>
+
+      <div class="password-toggle">
+        <input type="password" id="confirmPassword" placeholder="Confirm Password" />
+        <span class="password-toggle-icon" onclick="togglePassword('confirmPassword')">👁️</span>
+      </div>
+
+      <button onclick="signup()">Register</button>
+      <p id="error" class="error" style="color:red;"></p>
+      <p>Already have an account? <a href="index.html">Login here</a></p>
+    </div>
+  </div>
+
+  <script>
+    function togglePassword(id) {
+      const input = document.getElementById(id);
+      input.type = input.type === "password" ? "text" : "password";
+    }
+
+    function signup() {
+      const phone = document.getElementById("phone").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const confirmPassword = document.getElementById("confirmPassword").value.trim();
+      const errorEl = document.getElementById("error");
+
+      // Validation
+      if (!phone || !password || !confirmPassword) {
+        errorEl.textContent = "All fields are required.";
+        return;
+      }
+
+      if (!/^\d{10}$/.test(phone)) {
+        errorEl.textContent = "Phone number must be 10 digits.";
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        errorEl.textContent = "Passwords do not match.";
+        return;
+      }
+
+      // Save user to localStorage
+      const user = { phone, password };
+      localStorage.setItem("user", JSON.stringify(user));
+
+      alert("Registration successful! You can now log in.");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
